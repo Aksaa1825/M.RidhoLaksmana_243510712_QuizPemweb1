@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melayu Heritage — Cultural Portfolio Website</title>
+    <!-- Fonts: Cinzel (Luxury Editorial) and Plus Jakarta Sans (Clean Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Global Search Overlay -->
+<div id="search-overlay" class="search-overlay">
+    <button onclick="toggleSearch()" class="search-close-btn" title="Tutup Pencarian">
+        <i data-lucide="x"></i>
+    </button>
+    <div class="search-wrapper">
+        <h3 class="search-title">Cari Warisan Melayu</h3>
+        <div class="search-input-container">
+            <input type="text" id="global-search-input" onkeyup="performLiveSearch()" placeholder="Ketik kata kunci (misal: Rendang, Zapin, Kurung, Sejarah)..." class="search-input">
+            <i data-lucide="search"></i>
+        </div>
+        <div id="search-results" class="search-results">
+            <!-- Dynamic search matches populate here -->
+        </div>
+    </div>
+</div>
+
+<!-- Toast Alert Notifications -->
+<div id="toast-message" class="toast">
+    <i data-lucide="info"></i>
+    <span id="toast-text" class="toast-text">Pemberitahuan</span>
+</div>
+
+<!-- Navigation Header -->
+<header class="header" id="main-nav">
+    <div class="container nav-container">
+        <!-- Brand Logo -->
+        <a href="#hero" class="logo">
+            <div class="logo-icon-wrapper">
+                <!-- Golden Mini Ornament SVG -->
+                <svg viewBox="0 0 100 100" class="animate-spin-slow" style="width: 2rem; height: 2rem; color: var(--color-gold);">
+                    <path fill="currentColor" d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" />
+                </svg>
+            </div>
+            <div class="logo-text-wrapper">
+                <span class="logo-brand">MELAYU</span>
+                <span class="logo-sub">HERITAGE</span>
+            </div>
+        </a>
+
+        <!-- Navigation Links (Desktop) -->
+        <nav class="nav-links">
+            <a href="#tentang">TENTANG</a>
+            <a href="#kuliner">KULINER</a>
+            <a href="#busana">BUSANA</a>
+            <a href="#seni">SENI</a>
+            <a href="#sejarah">SEJARAH</a>
+            <a href="#galeri">GALERI</a>
+        </nav>
+
+        <!-- Utility controls -->
+        <div class="nav-actions">
+            <!-- Traditional audio toggler -->
+            <button onclick="toggleTraditionalMusic()" id="music-btn" class="btn-control btn-music" title="Putar Musik Tradisional">
+                <i data-lucide="music" id="music-icon"></i>
+                <span id="music-text">Musik Off</span>
+            </button>
+
+            <!-- Search Button -->
+            <button onclick="toggleSearch()" class="btn-control" title="Cari Budaya">
+                <i data-lucide="search"></i>
+            </button>
+
+            <!-- Light/Dark Mode Toggle -->
+            <button onclick="toggleTheme()" class="btn-control" title="Ubah Tema">
+                <i id="theme-icon" data-lucide="moon"></i>
+            </button>
+
+            <!-- Mobile menu button -->
+            <button onclick="toggleMobileMenu()" class="btn-control mobile-menu-btn" title="Menu Mobile">
+                <i data-lucide="menu" id="menu-btn-icon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="mobile-menu-drawer">
+        <nav class="mobile-nav-links">
+            <a href="#tentang" onclick="toggleMobileMenu()">TENTANG</a>
+            <a href="#kuliner" onclick="toggleMobileMenu()">KULINER</a>
+            <a href="#busana" onclick="toggleMobileMenu()">BUSANA</a>
+            <a href="#seni" onclick="toggleMobileMenu()">SENI</a>
+            <a href="#sejarah" onclick="toggleMobileMenu()">SEJARAH</a>
+            <a href="#galeri" onclick="toggleMobileMenu()">GALERI</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="hero" class="hero-section woodcarving-bg">
+    <!-- Fluid Gold Gradient Background Glow -->
+    <div class="hero-overlay"></div>
+    <div class="bg-glow-gold" style="top: 25%; left: 25%;"></div>
+    <div class="bg-glow-emerald" style="bottom: 25%; right: 25%;"></div>
+
+    <!-- Floating Elegant SVG Ornaments -->
+    <div class="floating-ornament animate-float-slow" style="top: 5rem; left: 2.5rem; width: 8rem;">
+        <svg viewBox="0 0 100 100" fill="currentColor" style="color: var(--color-gold);">
+            <path d="M50 0 C60 20, 80 40, 100 50 C80 60, 60 80, 50 100 C40 80, 20 60, 0 50 C20 40, 40 20, 50 0" />
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+    </div>
+    <div class="floating-ornament animate-float-reverse" style="bottom: 2.5rem; right: 2.5rem; width: 9rem;">
+        <svg viewBox="0 0 100 100" fill="currentColor" style="color: var(--color-gold);">
+            <path d="M50 10 C55 35, 75 45, 90 50 C75 55, 55 65, 50 90 C45 65, 25 55, 10 50 C25 45, 45 35, 50 10" />
+            <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4"/>
+        </svg>
+    </div>
+
+    <!-- Central Hero Content -->
+    <div class="hero-container">
+        <!-- Floating Crest Ornament -->
+        <div class="hero-crest">
+            <svg style="width: 5rem; height: 5rem; color: var(--color-gold);" class="animate-float-slow" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5 L63 25 L88 25 L75 48 L88 72 L63 72 L50 95 L37 72 L12 72 L25 48 L12 25 L37 25 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="50" cy="48" r="12" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M50 20 V75 M30 48 H70" stroke="currentColor" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <span class="hero-tagline animate-pulse-glow">PORTFOLIO KEBUDAYAAN DIGITAL</span>
+        
+        <h1 class="hero-title">
+            Menelusuri Warisan<br>
+            <span class="text-transparent-gradient">Kebudayaan Melayu</span>
+        </h1>
+        
+        <p class="hero-desc">
+            Makanan, busana adat, kesenian, dan tradisi dalam satu perpaduan pengalaman visual editorial yang modern, artistik, dan eksklusif.
+        </p>
+
+        <!-- Dynamic CTA Buttons -->
+        <div class="hero-cta">
+            <a href="#tentang" class="btn btn-primary">
+                JELAJAHI BUDAYA
+            </a>
+            <a href="#galeri" class="btn btn-secondary">
+                LIHAT KOLEKSI
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <span class="scroll-text">SCROLL DOWN</span>
+        <div class="scroll-line">
+            <div class="scroll-bullet animate-bounce"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Tentang Section -->
+<section id="tentang" class="section">
+    <div class="bg-glow-emerald" style="left: -2.5rem; top: 0; width: 18rem; height: 18rem; filter: blur(80px); opacity: 0.1;"></div>
+    <div class="bg-glow-gold" style="right: 0; bottom: 0; width: 20rem; height: 20rem; filter: blur(90px); opacity: 0.05;"></div>
+
+    <div class="container">
+        <!-- Section Title & Subtitle -->
+        <div class="section-header">
+            <span class="section-tag">SEJARAH & FILOSOFI</span>
+            <h2 class="section-title">Identitas Melayu</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="about-grid">
+            <!-- Left: Artistic Interlocking Visual -->
+            <div class="about-visual">
+                <div class="about-visual-glow"></div>
+                <!-- Elegant container simulating luxury museum framing -->
+                <div class="about-frame">
+                    <!-- Golden Floral Pattern SVG background overlay -->
+                    <svg viewBox="0 0 100 100" style="position: absolute; inset: 0; opacity: 0.1; color: var(--color-gold); pointer-events: none; padding: 2.5rem;">
+                        <path fill="currentColor" d="M50 0 C60 25, 75 40, 100 50 C75 60, 60 75, 50 100 C40 75, 25 60, 0 50 C25 40, 40 25, 50 0 Z" />
+                    </svg>
+                    
+                    <div class="about-canvas">
+                        <!-- Illustrated Malay Ship SVG representing marine culture -->
+                        <svg viewBox="0 0 120 120" style="width: 12rem; height: 12rem; color: var(--color-gold);" class="animate-float-slow">
+                            <!-- Sails -->
+                            <path d="M60 10 Q85 35, 95 65 Q60 55, 60 10 Z" fill="currentColor" opacity="0.9"/>
+                            <path d="M60 15 Q35 40, 25 65 Q60 55, 60 15 Z" fill="currentColor" opacity="0.75"/>
+                            <!-- Mast -->
+                            <line x1="60" y1="5" x2="60" y2="90" stroke="#FFF" stroke-width="2.5"/>
+                            <!-- Hull (Ship Boat) -->
+                            <path d="M15 80 L105 80 C95 105, 25 105, 15 80 Z" fill="currentColor"/>
+                            <!-- Wave lines -->
+                            <path d="M5 100 Q30 92, 60 100 Q90 108, 115 100" fill="none" stroke="#FFF" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M10 110 Q40 102, 70 110 Q100 118, 110 110" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="about-ship-details">
+                        <div>
+                            <span class="about-ship-tag">FILOSOFI MARITIM</span>
+                            <p class="about-ship-title">"Lancang Kuning"</p>
+                        </div>
+                        <i data-lucide="compass" style="color: var(--color-gold); width: 1.5rem; height: 1.5rem;" class="animate-spin-slow"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Modern Editorial Text Details & Philosophy Tabs -->
+            <div class="about-content">
+                <div class="tabs-nav">
+                    <button onclick="switchTab('sejarah-tab', this)" class="tab-btn active-tab">SEJARAH</button>
+                    <button onclick="switchTab('persebaran-tab', this)" class="tab-btn">PERSEBARAN</button>
+                    <button onclick="switchTab('filosofi-tab', this)" class="tab-btn">FILOSOFI</button>
+                </div>
+
+                <!-- Tab Content: Sejarah -->
+                <div id="sejarah-tab" class="tab-content block">
+                    <h3>Peradaban Emas di Kawasan Nusantara</h3>
+                    <p>
+                        Suku Melayu merupakan salah satu peradaban tertua di kepulauan Nusantara yang berkembang pesat melalui jaringan perdagangan maritim internasional sejak abad ke-7 masehi, mencapai era kegemilangan di bawah kerajaan Sriwijaya, Malaka, hingga Riau-Lingga.
+                    </p>
+                    <p>
+                        Memiliki perpaduan pengaruh dari berbagai asimilasi tradisi, nilai keislaman yang mendasar, serta keterbukaan budaya menjadikannya sebuah peradaban beradab tinggi yang mengutamakan kehalusan bahasa, keluhuran budi pekerti, dan penghormatan sosial.
+                    </p>
+                </div>
+
+                <!-- Tab Content: Persebaran -->
+                <div id="persebaran-tab" class="tab-content">
+                    <h3>Menjelajah Pesisir Selat & Kepulauan</h3>
+                    <p>
+                        Kebudayaan Melayu menyebar luas di sepanjang kawasan strategis Selat Malaka, Kepulauan Riau, Riau daratan, pesisir Kalimantan (termasuk Sarawak, Sabah, Brunei), Semenanjung Malaya, hingga wilayah pesisir Sumatra bagian utara dan timur.
+                    </p>
+                    <div class="tab-grid">
+                        <div class="tab-grid-item">
+                            <span class="tab-grid-title">Riau & Kepri</span>
+                            <p class="tab-grid-desc">Pusat bahasa Melayu baku, sastra Gurindam, dan pantun Melayu.</p>
+                        </div>
+                        <div class="tab-grid-item">
+                            <span class="tab-grid-title">Semenanjung</span>
+                            <p class="tab-grid-desc">Jantung perdagangan Malaka bersejarah & integrasi modern.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Filosofi -->
+                <div id="filosofi-tab" class="tab-content">
+                    <h3>Adat Bersandi Syarak, Syarak Bersandi Kitabullah</h3>
+                    <p>
+                        Filosofi kehidupan Melayu berlandaskan pada keselarasan adat dan ketentuan agama Islam yang mendalam. Kebajikan sosial, keramahan menyambut tamu, kesantunan bertutur kata, serta kebijaksanaan musyawarah merupakan pilar kehormatan diri.
+                    </p>
+                    <blockquote class="tab-quote">
+                        "Adat hidup beradab dan santun, menghormati tua menyayangi muda, kokoh memegang sumpah setia, teguh memeluk agama Ilahi."
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Kuliner Section -->
+<section id="kuliner" class="section" style="background-color: var(--bg-secondary);">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="slider-header-wrapper">
+            <div>
+                <span class="section-tag">EKSPLORASI RASA</span>
+                <h2 class="section-title">Kuliner Warisan</h2>
+                <p class="section-subtitle" style="margin-left: 0;">Cita rasa masakan kaya rempah dengan metode pengolahan turun-temurun khas semenanjung tanah Melayu.</p>
+            </div>
+            <!-- Slider Nav Buttons -->
+            <div class="slider-controls">
+                <button onclick="slideCulinary('prev')" class="slider-btn" title="Sebelumnya">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button onclick="slideCulinary('next')" class="slider-btn" title="Berikutnya">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slider Track Container -->
+        <div class="slider-outer" id="slider-outer">
+            <div class="slider-track" id="culinary-slider">
+                
+                <!-- Food Card 1: Rendang Melayu -->
+                <div class="card food-card glass-panel">
+                    <div class="card-media">
+                        <img src="images/rendang_melayu.png" alt="Rendang Melayu">
+                        <div class="card-badge">LEGENDARIS</div>
+                    </div>
+                    <span class="card-tag">Riau & Kepulauan</span>
+                    <h3 class="card-title">Rendang Melayu</h3>
+                    <p class="card-desc">
+                        Berbeda dengan gaya Minang, Rendang Melayu memiliki kuah lebih berempah basah berwarna cokelat keemasan dengan keharuman cengkih serta ketumbar segar yang khas.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-footer-text">Cita Rasa: Gurih Pedas</span>
+                        <i data-lucide="arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Food Card 2: Gulai Ikan Patin -->
+                <div class="card food-card glass-panel">
+                    <div class="card-media">
+                        <img src="images/gulai_patin.png" alt="Gulai Ikan Patin">
+                        <div class="card-badge">HIDANGAN UTAMA</div>
+                    </div>
+                    <span class="card-tag">Pekanbaru & Riau Darat</span>
+                    <h3 class="card-title">Gulai Ikan Patin</h3>
+                    <p class="card-desc">
+                        Kuah kuning bertekstur kental beraroma serai dan kunyit dengan kelembutan daging ikan patin segar tangkapan sungai Kampar yang legendaris di Riau.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-footer-text">Cita Rasa: Asam Gurih</span>
+                        <i data-lucide="arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Food Card 3: Asam Pedas -->
+                <div class="card food-card glass-panel">
+                    <div class="card-media">
+                        <img src="images/asam_pedas.png" alt="Asam Pedas Melayu">
+                        <div class="card-badge">FAVORIT PESISIR</div>
+                    </div>
+                    <span class="card-tag">Kepulauan Riau & Lingga</span>
+                    <h3 class="card-title">Asam Pedas Melayu</h3>
+                    <p class="card-desc">
+                        Kuah merah menyala yang segar tanpa santan, dimasak bersama air asam jawa, cabai kering giling, serta paduan jahe hangat yang menggugah selera.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-footer-text">Cita Rasa: Pedas Asam</span>
+                        <i data-lucide="arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Food Card 4: Kue Bangkit -->
+                <div class="card food-card glass-panel">
+                    <div class="card-media">
+                        <img src="images/kue_bangkit.png" alt="Kue Bangkit">
+                        <div class="card-badge">MANISAN TRADISIONAL</div>
+                    </div>
+                    <span class="card-tag">Siak & Bengkalis</span>
+                    <h3 class="card-title">Kue Bangkit</h3>
+                    <p class="card-desc">
+                        Kudapan renyah manis berbahan dasar tepung sagu dan santan kelapa kental yang lumer seketika di mulut saat digigit, menjadi menu wajib hari raya.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-footer-text">Cita Rasa: Manis Kelapa</span>
+                        <i data-lucide="arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Food Card 5: Mie Sagu -->
+                <div class="card food-card glass-panel">
+                    <div class="card-media">
+                        <img src="images/mie_sagu.png" alt="Mie Sagu">
+                        <div class="card-badge">KULINER PESISIR</div>
+                    </div>
+                    <span class="card-tag">Kepulauan Meranti</span>
+                    <h3 class="card-title">Mie Sagu</h3>
+                    <p class="card-desc">
+                        Mi kenyal transparan khas olahan pohon sagu Selatpanjang, digoreng kering berpadu dengan tauge segar, taburan ikan bilis renyah dan cabai rawit pedas.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-footer-text">Cita Rasa: Kenyal Gurih</span>
+                        <i data-lucide="arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Food Card 6: Bolu Kemojo -->
+                <div class="card food-card glass-panel">
+                    <div class="card-media">
+                        <img src="images/bolu_kemojo.png" alt="Bolu Kemojo">
+                        <div class="card-badge">KUE ADAT</div>
+                    </div>
+                    <span class="card-tag">Riau Daratan</span>
+                    <h3 class="card-title">Bolu Kemojo</h3>
+                    <p class="card-desc">
+                        Kue basah tradisional beraroma khas daun pandan segar asli dengan bentuk menyerupai bunga kamboja (kemboja), menghidangkan cita rasa manis dan bertekstur legit.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-footer-text">Cita Rasa: Manis Pandan</span>
+                        <i data-lucide="arrow-right"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Busana Section -->
+<section id="busana" class="section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-tag">SENI TENUN & HIAS</span>
+            <h2 class="section-title">Busana & Pakaian Adat</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <!-- Attire Layout Grid -->
+        <div class="grid grid-cols-4 lg:grid-cols-4 md:grid-cols-2 gap-6" style="gap: 1.5rem;">
+            
+            <!-- Attire 1: Baju Kurung -->
+            <div onclick="openAttireModal('Baju Kurung', 'Busana longgar bagi wanita Melayu, dirancang agar tidak membentuk lekuk tubuh demi mematuhi nilai kepatutan dan syariat Islam. Umumnya berpadu dengan kain sarung songket.', 'Sutera, Katun Premium, atau Songket Benang Emas', 'Upacara Adat, Hari Raya Keagamaan, Pernikahan')" class="card glass-panel" style="width: 100%; cursor: pointer;">
+                <div class="card-media">
+                    <img src="images/baju_kurung.png" alt="Baju Kurung">
+                </div>
+                <span class="card-tag">BUSANA WANITA</span>
+                <h3 class="card-title">Baju Kurung</h3>
+                <p class="card-desc">Simbol kesopanan, kesantunan, dan marwah wanita mulia.</p>
+            </div>
+
+            <!-- Attire 2: Teluk Belanga -->
+            <div onclick="openAttireModal('Teluk Belanga', 'Busana formal pria Melayu dengan leher melingkar berhias kancing tunggal permata (Tepukan). Menggunakan kain samping songket yang dipasang di bawah kemeja longgar.', 'Sutra Melayu Berkualitas, Satin Halus', 'Pernikahan, Pertemuan Kerajaan, Resepsi Kenegaraan')" class="card glass-panel" style="width: 100%; cursor: pointer;">
+                <div class="card-media">
+                    <img src="images/teluk_belanga.png" alt="Teluk Belanga">
+                </div>
+                <span class="card-tag">BUSANA PRIA</span>
+                <h3 class="card-title">Teluk Belanga</h3>
+                <p class="card-desc">Keagungan bangsawan dan kesatria Melayu sejati.</p>
+            </div>
+
+            <!-- Attire 3: Kebaya Melayu -->
+            <div onclick="openAttireModal('Kebaya Melayu', 'Kebaya khas dengan potongan longgar panjang menyentuh lutut. Bagian depan dikancingkan berjejer rapi berhiaskan kerongsang (bros tiga tingkat) emas bercorak sulur tumbuhan.', 'Sifon Bordir, Brokat Halus, Sutera Alam', 'Upacara Formal, Tamu Agung, Perayaan Budaya')" class="card glass-panel" style="width: 100%; cursor: pointer;">
+                <div class="card-media">
+                    <img src="images/kebaya_melayu.png" alt="Kebaya Melayu">
+                </div>
+                <span class="card-tag">BUSANA WANITA</span>
+                <h3 class="card-title">Kebaya Melayu</h3>
+                <p class="card-desc">Keanggunan estetika permaisuri Melayu pesisir.</p>
+            </div>
+
+            <!-- Attire 4: Songket Melayu -->
+            <div onclick="openAttireModal('Songket Melayu', 'Kain tenun mewah warisan turun temurun, ditenun manual menggunakan alat tenun tradisional tustel dengan sisipan benang emas murni membentuk ragam hias khas kaluk pakis.', 'Benang Sutera Alam & Benang Logam Emas', 'Pernikahan, Pengangkatan Gelar, Tari Klasik')" class="card glass-panel" style="width: 100%; cursor: pointer;">
+                <div class="card-media">
+                    <img src="images/songket_melayu.png" alt="Songket Melayu">
+                </div>
+                <span class="card-tag">MAHKOTA KAIN</span>
+                <h3 class="card-title">Songket Melayu</h3>
+                <p class="card-desc">Eksklusivitas rajutan benang emas bernilai tinggi.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Attire Detail Modal Container (Interactive pop-up) -->
+<div id="attire-modal" class="modal-backdrop">
+    <div class="modal-container">
+        <!-- Golden Corner Ornaments inside Modal -->
+        <div class="modal-corner-tl"></div>
+        <div class="modal-corner-tr"></div>
+        <div class="modal-corner-bl"></div>
+        <div class="modal-corner-br"></div>
+
+        <button onclick="closeAttireModal()" class="modal-close-btn" title="Tutup">
+            <i data-lucide="x"></i>
+        </button>
+
+        <span class="modal-cat" id="modal-attire-cat">DETAIL BUSANA</span>
+        <h3 class="modal-title" id="modal-attire-title">Nama Busana</h3>
+        
+        <div class="modal-body">
+            <div>
+                <span class="modal-section-title">FILOSOFI</span>
+                <p class="modal-section-desc" id="modal-attire-philosophy">Isi filosofi busana...</p>
+            </div>
+            <div>
+                <span class="modal-section-title">BAHAN & MATERIAL</span>
+                <p class="modal-section-desc" id="modal-attire-material">Bahan kain...</p>
+            </div>
+            <div>
+                <span class="modal-section-title">ACARA PENGGUNAAN</span>
+                <p class="modal-section-desc" id="modal-attire-usage">Momen pengenaan pakaian...</p>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button onclick="closeAttireModal()" class="modal-btn">
+                TUTUP DETAIL
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Seni Section -->
+<section id="seni" class="section" style="background-color: var(--bg-secondary);">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-tag">SENI PERTUNJUKAN & SASTRA</span>
+            <h2 class="section-title">Kesenian Melayu</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="grid grid-cols-4 lg:grid-cols-4 md:grid-cols-2 gap-6" style="gap: 1.5rem;">
+            
+            <!-- Art 1: Tari Zapin -->
+            <div class="art-card glass-panel">
+                <div>
+                    <div class="art-card-header">
+                        <div class="art-icon-box">
+                            <i data-lucide="play" class="animate-pulse"></i>
+                        </div>
+                        <span class="art-card-tag">Seni Tari</span>
+                    </div>
+                    <h3 class="art-title">Tari Zapin</h3>
+                    <p class="art-desc">
+                        Tarian sarat edukasi bernuansa Islami. Gerakan kaki cepat yang dinamis melambangkan ketangkasan, persahabatan erat, serta keceriaan peradaban pesisir.
+                    </p>
+                </div>
+                <div class="art-footer">
+                    <button onclick="playCustomBeep(330, 0.4)" class="art-btn-listen">
+                        <i data-lucide="volume-2"></i>
+                        <span>Dengar Sampel</span>
+                    </button>
+                    <i data-lucide="activity" class="art-footer-ornament"></i>
+                </div>
+            </div>
+
+            <!-- Art 2: Musik Gambus -->
+            <div class="art-card glass-panel">
+                <div>
+                    <div class="art-card-header">
+                        <div class="art-icon-box">
+                            <i data-lucide="music-2"></i>
+                        </div>
+                        <span class="art-card-tag">Instrumental</span>
+                    </div>
+                    <h3 class="art-title">Musik Gambus</h3>
+                    <p class="art-desc">
+                        Alat musik petik mirip oud Arab beresonansi rongga kayu pir khas yang mendayu-dayu, mengiringi senandung lagu berpantun nasehat kebajikan hidup.
+                    </p>
+                </div>
+                <div class="art-footer">
+                    <button onclick="playCustomBeep(440, 0.4)" class="art-btn-listen">
+                        <i data-lucide="volume-2"></i>
+                        <span>Dengar Sampel</span>
+                    </button>
+                    <i data-lucide="activity" class="art-footer-ornament"></i>
+                </div>
+            </div>
+
+            <!-- Art 3: Kompang -->
+            <div class="art-card glass-panel">
+                <div>
+                    <div class="art-card-header">
+                        <div class="art-icon-box">
+                            <i data-lucide="disc" class="animate-spin-slow"></i>
+                        </div>
+                        <span class="art-card-tag">Seni Perkusi</span>
+                    </div>
+                    <h3 class="art-title">Kompang</h3>
+                    <p class="art-desc">
+                        Perkusi membran bundar bermaterial kulit kambing kencang yang ditepuk dalam harmoni ketukan bertingkat-tingkat untuk menyambut arak-arakan tamu agung.
+                    </p>
+                </div>
+                <div class="art-footer">
+                    <button onclick="playCustomBeep(220, 0.3)" class="art-btn-listen">
+                        <i data-lucide="volume-2"></i>
+                        <span>Dengar Sampel</span>
+                    </button>
+                    <i data-lucide="activity" class="art-footer-ornament"></i>
+                </div>
+            </div>
+
+            <!-- Art 4: Syair Melayu -->
+            <div class="art-card glass-panel">
+                <div>
+                    <div class="art-card-header">
+                        <div class="art-icon-box">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <span class="art-card-tag">Sastra Tulisan</span>
+                    </div>
+                    <h3 class="art-title">Syair Melayu</h3>
+                    <p class="art-desc">
+                        Karya sastra bait puitis bernada a-a-a-a peninggalan pujangga istana Melayu lama, merangkum sejarah perjuangan bangsa serta tuntunan adab budi pekerti.
+                    </p>
+                </div>
+                <div class="art-footer">
+                    <button onclick="playCustomBeep(554, 0.4)" class="art-btn-listen">
+                        <i data-lucide="volume-2"></i>
+                        <span>Dengar Sampel</span>
+                    </button>
+                    <i data-lucide="activity" class="art-footer-ornament"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Sejarah Section -->
+<section id="sejarah" class="section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-tag">LORONG WAKTU</span>
+            <h2 class="section-title">Linimasa Perkembangan</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <!-- Timeline Layout Grid -->
+        <div class="timeline-grid">
+            <!-- Left Column: Timeline Navigation -->
+            <div class="timeline-nav">
+                <button onclick="activateTimelineStep(1)" id="time-btn-1" class="time-btn active-time">
+                    <div>
+                        <span class="time-btn-label">FASE PERTAMA</span>
+                        <span class="time-btn-title">Era Kerajaan</span>
+                    </div>
+                    <i data-lucide="crown"></i>
+                </button>
+                <button onclick="activateTimelineStep(2)" id="time-btn-2" class="time-btn">
+                    <div>
+                        <span class="time-btn-label">FASE KEDUA</span>
+                        <span class="time-btn-title">Perkembangan Sastra</span>
+                    </div>
+                    <i data-lucide="feather"></i>
+                </button>
+                <button onclick="activateTimelineStep(3)" id="time-btn-3" class="time-btn">
+                    <div>
+                        <span class="time-btn-label">FASE KETIGA</span>
+                        <span class="time-btn-title">Modernisasi</span>
+                    </div>
+                    <i data-lucide="cpu"></i>
+                </button>
+                <button onclick="activateTimelineStep(4)" id="time-btn-4" class="time-btn">
+                    <div>
+                        <span class="time-btn-label">FASE KEEMPAT</span>
+                        <span class="time-btn-title">Pelestarian Digital</span>
+                    </div>
+                    <i data-lucide="database"></i>
+                </button>
+            </div>
+
+            <!-- Right Column: Interactive Timeline Details Card -->
+            <div class="timeline-display">
+                
+                <!-- Step 1 Content -->
+                <div id="timeline-step-1" class="timeline-content block">
+                    <span class="timeline-content-date">ABAD KE-7 SAMPAI ABAD KE-15</span>
+                    <h3>Kejayaan Bahari & Sriwijaya</h3>
+                    <p>
+                        Awal mula kebangkitan kebudayaan Melayu yang berbasiskan kemaritiman. Berakar dari konfederasi Sriwijaya hingga pusat kesultanan Malaka di pesisir, menguasai alur niaga internasional yang membawa asimilasi emas dari dunia luar (Arab, Gujarat, China).
+                    </p>
+                    <div class="timeline-checkpoint">
+                        <i data-lucide="check-circle"></i>
+                        <span>Tatanan adat istana formal pertama dirumuskan</span>
+                    </div>
+                </div>
+
+                <!-- Step 2 Content -->
+                <div id="timeline-step-2" class="timeline-content">
+                    <span class="timeline-content-date">ABAD KE-16 SAMPAI ABAD KE-19</span>
+                    <h3>Kesusastraan & Kejayaan Riau-Lingga</h3>
+                    <p>
+                        Kebudayaan Melayu beralih fokus menjadi pusat sastra tulisan paling anggun di nusantara dengan standarisasi tata bahasa Melayu tinggi di Pulau Penyengat. Periode kelahiran Gurindam Dua Belas karya Raja Ali Haji yang menuntun pembinaan karakter budi luhur bangsa Melayu.
+                    </p>
+                    <div class="timeline-checkpoint">
+                        <i data-lucide="check-circle"></i>
+                        <span>Bahasa Melayu dinobatkan menjadi Lingua Franca</span>
+                    </div>
+                </div>
+
+                <!-- Step 3 Content -->
+                <div id="timeline-step-3" class="timeline-content">
+                    <span class="timeline-content-date">ABAD KE-20</span>
+                    <h3>Nasionalisme & Adaptasi Era Modern</h3>
+                    <p>
+                        Bahasa Melayu mengalami proses evolusi agung menjadi pondasi bahasa nasional Republik Indonesia, bahasa Malaysia, serta Brunei Darussalam. Kesenian tradisional dikemas ulang dan dirayakan dalam skala nasional dan festival kebudayaan internasional.
+                    </p>
+                    <div class="timeline-checkpoint">
+                        <i data-lucide="check-circle"></i>
+                        <span>Sumpah Pemuda merevitalisasi bahasa Melayu</span>
+                    </div>
+                </div>
+
+                <!-- Step 4 Content -->
+                <div id="timeline-step-4" class="timeline-content">
+                    <span class="timeline-content-date">ABAD KE-21 & MASA DEPAN</span>
+                    <h3>Pelestarian Warisan Digital</h3>
+                    <p>
+                        Era modern menuntut penyelamatan warisan tak benda ke dalam database digital. Proyek interaktif virtual museum, album digital instrumen, pameran virtual songket, serta portal pembelajaran pantun memastikan jati diri Melayu tak luntur ditelan derasnya digitalisasi global.
+                    </p>
+                    <div class="timeline-checkpoint">
+                        <i data-lucide="check-circle"></i>
+                        <span>Melayu Heritage hadir melestarikan warisan digital</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Galeri Section -->
+<section id="galeri" class="section" style="background-color: var(--bg-secondary);">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-tag">REKAMAN VISUAL</span>
+            <h2 class="section-title">Galeri Warisan Budaya</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="gallery-filters">
+            <button onclick="filterGallery('semua', this)" class="gallery-filter-btn active-filter">SEMUA</button>
+            <button onclick="filterGallery('kuliner', this)" class="gallery-filter-btn">KULINER</button>
+            <button onclick="filterGallery('busana', this)" class="gallery-filter-btn">BUSANA</button>
+            <button onclick="filterGallery('seni', this)" class="gallery-filter-btn">SENI</button>
+            <button onclick="filterGallery('tradisi', this)" class="gallery-filter-btn">TRADISI</button>
+        </div>
+
+        <!-- Pinterest/Masonry Grid Container -->
+        <div id="gallery-grid" class="gallery-grid">
+            
+            <!-- Gallery Item 1 (Kuliner) -->
+            <div class="gallery-item glass-panel" data-category="kuliner" data-title="Rendang Melayu basah santan kental rempah">
+                <div class="gallery-media aspect-square">
+                    <img src="images/rendang_melayu.png" alt="Rendang Melayu">
+                </div>
+                <div class="gallery-info">
+                    <div>
+                        <span class="gallery-tag">KULINER WARISAN</span>
+                        <h4 class="gallery-title">Rendang Melayu</h4>
+                    </div>
+                    <i data-lucide="maximize-2"></i>
+                </div>
+            </div>
+
+            <!-- Gallery Item 2 (Busana) -->
+            <div class="gallery-item glass-panel" data-category="busana" data-title="Baju kurung bersulamkan benang emas">
+                <div class="gallery-media aspect-video">
+                    <img src="images/baju_kurung.png" alt="Baju Kurung Klasik">
+                </div>
+                <div class="gallery-info">
+                    <div>
+                        <span class="gallery-tag">BUSANA ADAT</span>
+                        <h4 class="gallery-title">Baju Kurung Klasik</h4>
+                    </div>
+                    <i data-lucide="maximize-2"></i>
+                </div>
+            </div>
+
+            <!-- Gallery Item 3 (Seni) -->
+            <div class="gallery-item glass-panel" data-category="seni" data-title="Tari Zapin tarian bernuansa islami">
+                <div class="gallery-media aspect-square">
+                    <img src="images/tari_zapin.png" alt="Zapin Tradisional">
+                </div>
+                <div class="gallery-info">
+                    <div>
+                        <span class="gallery-tag">SENI TARI</span>
+                        <h4 class="gallery-title">Zapin Tradisional</h4>
+                    </div>
+                    <i data-lucide="maximize-2"></i>
+                </div>
+            </div>
+
+            <!-- Gallery Item 4 (Tradisi) -->
+            <div class="gallery-item glass-panel" data-category="tradisi" data-title="Tepuk tepung tawar berkat doa restu">
+                <div class="gallery-media aspect-video">
+                    <img src="images/tepuk_tepung_tawar.png" alt="Tepuk Tepung Tawar">
+                </div>
+                <div class="gallery-info">
+                    <div>
+                        <span class="gallery-tag">TRADISI ADAT</span>
+                        <h4 class="gallery-title">Tepuk Tepung Tawar</h4>
+                    </div>
+                    <i data-lucide="maximize-2"></i>
+                </div>
+            </div>
+
+            <!-- Gallery Item 5 (Kuliner) -->
+            <div class="gallery-item glass-panel" data-category="kuliner" data-title="Mie sagu goreng dengan tauge bilis">
+                <div class="gallery-media aspect-square">
+                    <img src="images/mie_sagu.png" alt="Mie Sagu Selatpanjang">
+                </div>
+                <div class="gallery-info">
+                    <div>
+                        <span class="gallery-tag">KULINER WARISAN</span>
+                        <h4 class="gallery-title">Mie Sagu Selatpanjang</h4>
+                    </div>
+                    <i data-lucide="maximize-2"></i>
+                </div>
+            </div>
+
+            <!-- Gallery Item 6 (Busana) -->
+            <div class="gallery-item glass-panel" data-category="busana" data-title="Kain songket tenunan benang logam mulia emas">
+                <div class="gallery-media aspect-square">
+                    <img src="images/songket_melayu.png" alt="Songket Lepus Emas">
+                </div>
+                <div class="gallery-info">
+                    <div>
+                        <span class="gallery-tag">BUSANA ADAT</span>
+                        <h4 class="gallery-title">Songket Lepus Emas</h4>
+                    </div>
+                    <i data-lucide="maximize-2"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Quote Banner Section -->
+<section class="quote-strip">
+    <!-- Overlay woodcarving texture lightly -->
+    <div class="absolute inset-0 woodcarving-bg opacity-10"></div>
+    <div class="bg-glow-gold" style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24rem; height: 24rem; filter: blur(80px); opacity: 0.2;"></div>
+
+    <div class="quote-strip-container">
+        <!-- Golden Shield Crest SVG -->
+        <div class="quote-strip-crest">
+            <svg class="animate-float-slow" viewBox="0 0 100 100" fill="none" style="width: 4rem; height: 4rem; color: var(--color-gold);">
+                <path d="M50 10 C20 10 15 40 50 90 C85 40 80 10 50 10 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M50 10 V90 M30 35 Q50 50 70 35" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+        </div>
+
+        <span class="quote-strip-tag">Sumpah Kesetiaan Hang Tuah</span>
+        
+        <h2 class="quote-strip-title">
+            "Takkan Melayu<br> Hilang di Bumi"
+        </h2>
+        
+        <div class="quote-strip-divider"></div>
+
+        <p class="quote-strip-desc">
+            Sebuah seruan luhur penanda ketangguhan, bahwa nilai peradaban, adab kepatutan, dan keelokan budaya Melayu akan senantiasa kukuh abadi di tengah gempuran samudera zaman.
+        </p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <!-- Column 1: Brand details -->
+            <div class="footer-col">
+                <a href="#hero" class="logo">
+                    <div class="logo-icon-wrapper">
+                        <svg viewBox="0 0 100 100" class="animate-spin-slow" style="width: 2rem; height: 2rem; color: var(--color-gold);">
+                            <path fill="currentColor" d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" />
+                        </svg>
+                    </div>
+                    <div class="logo-text-wrapper">
+                        <span class="logo-brand" style="color: var(--color-cream);">MELAYU</span>
+                        <span class="logo-sub">HERITAGE</span>
+                    </div>
+                </a>
+                <p>
+                    Digital museum, galeri arsip, dan media penelusuran estetika kebudayaan Melayu modern yang premium, berdedikasi tinggi pada kelestarian masa depan Nusantara.
+                </p>
+            </div>
+
+            <!-- Column 2: Quick Navigation Links -->
+            <div class="footer-col">
+                <h4 class="footer-title">Navigasi</h4>
+                <ul class="footer-links">
+                    <li><a href="#tentang">Sejarah & Filosofi</a></li>
+                    <li><a href="#kuliner">Kuliner Tradisional</a></li>
+                    <li><a href="#busana">Pakaian Adat & Songket</a></li>
+                    <li><a href="#seni">Kesenian & Syair</a></li>
+                    <li><a href="#sejarah">Linimasa Peradaban</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Contact & Address -->
+            <div class="footer-col">
+                <h4 class="footer-title">Kontak Kami</h4>
+                <ul class="footer-contact-list">
+                    <li class="footer-contact-item">
+                        <i data-lucide="map-pin"></i>
+                        <span>Pekanbaru, Riau, Indonesia</span>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i data-lucide="mail"></i>
+                        <span>warisan@melayuheritage.or.id</span>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i data-lucide="phone"></i>
+                        <span>+62 761 123456</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Newsletter / Social Media -->
+            <div class="footer-col">
+                <h4 class="footer-title">Koneksi Media</h4>
+                <p>Ikuti kabar pelestarian budaya kami melalui jaringan sosial berikut:</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-btn" title="Instagram">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                    <a href="#" class="footer-social-btn" title="YouTube">
+                        <i data-lucide="youtube"></i>
+                    </a>
+                    <a href="#" class="footer-social-btn" title="TikTok">
+                        <i data-lucide="video"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Melayu Heritage. Hak Cipta Dilindungi Undang-Undang.</p>
+            <p class="footer-bottom-accent">Dibuat dengan dedikasi tinggi untuk Pelestarian Kebudayaan Melayu Nusantara.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- External Scripts -->
+<script src="script.js"></script>
+
+</body>
+</html>
